@@ -61,7 +61,7 @@ const Home = () => {
 
   usePageMeta({
     title: 'Free Online Word Counter 2026',
-    description: 'Free online word counter tool. Count words, characters, sentences, and paragraphs in real-time. Check readability score, keyword density, and writing time. Perfect for writers, students, and SEO professionals.',
+    description: 'Free online word counter. Count words, characters, sentences & paragraphs instantly. Check readability score, keyword density, and writing time. Free for writers, students, and SEO pros.',
     path: '/',
   });
 
@@ -152,7 +152,10 @@ const Home = () => {
 
       {highlightsEnabled && text && <SentenceHighlights text={debouncedText} />}
 
-      <StatsGrid stats={stats} />
+      <section aria-labelledby="stats-heading">
+        <h2 id="stats-heading" className="sr-only">Real-Time Text Statistics</h2>
+        <StatsGrid stats={stats} />
+      </section>
 
       <TabBar active={activeTab} onChange={setActiveTab} />
 
@@ -199,10 +202,14 @@ const Home = () => {
             voice, and analyzes keyword density to help you write better content that ranks.
           </p>
           <p>
-            Use the <strong>Flesch Reading Ease score</strong> and <strong>Flesch-Kincaid Grade Level</strong>{' '}
-            to match your content to your audience. The <strong>keyword density analyzer</strong> shows ideal
-            1–3% density with warnings to avoid keyword stuffing. Upload <strong>TXT, DOCX, or PDF</strong>{' '}
-            files, compare two documents for similarity, and export your analysis as CSV or JSON.
+            Use the{' '}
+            <a href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-dark">
+              Flesch Reading Ease score
+            </a>{' '}
+            and <strong>Flesch-Kincaid Grade Level</strong> to match your content to your audience.
+            The <strong>keyword density analyzer</strong> shows ideal 1–3% density with warnings to avoid keyword
+            stuffing. Upload <strong>TXT, DOCX, or PDF</strong> files, compare two documents for similarity,
+            and export your analysis as CSV or JSON.
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-3">
             {[
