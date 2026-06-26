@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
+import CookieConsent from './components/CookieConsent';
 
 // Secondary pages are lazy-loaded — they're code-split into separate chunks
 // so the main word counter tool loads immediately without waiting for them.
@@ -41,6 +42,7 @@ function App() {
           <Route path="*"                element={<NotFound />} />
         </Routes>
       </Suspense>
+      <CookieConsent />
     </BrowserRouter>
   );
 }
