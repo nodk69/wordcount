@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /api/
-Sitemap: https://wordcounter.app/sitemap.xml
+Sitemap: https://countsyourwords.netlify.app/sitemap.xml

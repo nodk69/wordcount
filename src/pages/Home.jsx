@@ -14,6 +14,7 @@ import ActivityTracker from '../components/activity/ActivityTracker';
 import ContentHistory from '../components/history/ContentHistory';
 import { useTheme } from '../hooks/useTheme';
 import { useAutoSave } from '../hooks/useAutoSave';
+import { usePageMeta } from '../hooks/usePageMeta';
 import { useActivityTracker } from '../hooks/useActivityTracker';
 import { useDebounce } from '../hooks/useDebounce';
 import { useWordCounter } from '../hooks/useWordCounter';
@@ -57,6 +58,12 @@ const Home = () => {
   const [highlightsEnabled, setHighlightsEnabled] = useState(false);
   const [activeTab, setActiveTab] = useState('keywords');
   const historyTimerRef = useRef(null);
+
+  usePageMeta({
+    title: 'Free Online Word Counter 2026',
+    description: 'Free online word counter tool. Count words, characters, sentences, and paragraphs in real-time. Check readability score, keyword density, and writing time. Perfect for writers, students, and SEO professionals.',
+    path: '/',
+  });
 
   const saveStatus = useAutoSave(text, setText);
   const debouncedText = useDebounce(text, 250);

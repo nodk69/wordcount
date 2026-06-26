@@ -2,9 +2,11 @@ import { Link } from 'react-router-dom';
 import Footer from './Footer';
 import Navbar from './Navbar';
 import { useTheme } from '../../hooks/useTheme';
+import { usePageMeta } from '../../hooks/usePageMeta';
 
 const PageLayout = ({ children, title, subtitle }) => {
   const [theme, toggleTheme] = useTheme();
+  usePageMeta({ title });
 
   return (
     <div className="min-h-screen flex flex-col bg-light dark:bg-dark transition-colors duration-200">
