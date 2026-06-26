@@ -36,7 +36,6 @@ const Contact = () => {
         <div className="space-y-4">
           {[
             { icon: '📧', title: 'Email', desc: 'hello@wordcounter.app', sub: 'We reply within 1–2 business days.' },
-            { icon: '🐙', title: 'GitHub', desc: 'github.com/wordcounter', sub: 'Report bugs or open feature requests.' },
             { icon: '🐦', title: 'Twitter', desc: '@wordcounterapp', sub: 'Quick questions and updates.' },
           ].map(({ icon, title, desc, sub }) => (
             <div key={title} className="section-card flex gap-3">
