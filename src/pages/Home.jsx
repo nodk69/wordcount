@@ -60,8 +60,8 @@ const Home = () => {
   const historyTimerRef = useRef(null);
 
   usePageMeta({
-    title: 'Free Online Word Counter 2026',
-    description: 'Free online word counter. Count words, characters, sentences & paragraphs instantly. Check readability score, keyword density, and writing time. Free for writers, students, and SEO pros.',
+    title: 'Free Word Counter & Character Counter Tool 2026',
+    description: 'Free online word counter. Count words, characters, sentences & paragraphs instantly. Check readability score, keyword density, and writing time instantly.',
     path: '/',
   });
 
@@ -193,34 +193,83 @@ const Home = () => {
         onClear={clearHistory}
       />
 
-      <section className="mt-10 section-card">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">About WordCounter</h2>
-        <div className="text-sm text-gray-600 dark:text-gray-400 space-y-2 leading-relaxed">
-          <p>
-            WordCounter is a free, browser-based writing tool that provides real-time statistics as you type.
-            It counts words, characters, sentences, and paragraphs — plus checks readability, detects passive
-            voice, and analyzes keyword density to help you write better content that ranks.
-          </p>
-          <p>
-            Use the{' '}
-            <a href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-dark">
-              Flesch Reading Ease score
-            </a>{' '}
-            and <strong>Flesch-Kincaid Grade Level</strong> to match your content to your audience.
-            The <strong>keyword density analyzer</strong> shows ideal 1–3% density with warnings to avoid keyword
-            stuffing. Upload <strong>TXT, DOCX, or PDF</strong> files, compare two documents for similarity,
-            and export your analysis as CSV or JSON.
-          </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-3">
-            {[
-              ['word counter', 'character counter'],
-              ['readability score', 'keyword density checker'],
-              ['passive voice detector', 'meta title checker'],
-              ['content comparison', 'n-gram analyzer'],
-            ].flat().map((kw) => (
-              <span key={kw} className="text-xs bg-gray-100 dark:bg-dark px-2 py-1 rounded text-gray-600 dark:text-gray-400">{kw}</span>
-            ))}
-          </div>
+      {/* ── How It Works ─────────────────────────────────────────────── */}
+      <section className="mt-10">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-5">How Our Word Counter Tool Works</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {[
+            { icon: '📝', step: '1. Type or Paste', body: 'Type directly or paste existing text into the editor. The free word counter starts analysing your content the moment you begin.' },
+            { icon: '⚡', step: '2. Get Real-Time Statistics', body: 'Instantly see your word count, character count, sentence count, paragraph count, reading time, and speaking time update as you write.' },
+            { icon: '📊', step: '3. Analyse & Improve', body: 'Use the readability score, keyword density checker, and n-gram analyser to refine your content for better engagement and higher SEO rankings.' },
+          ].map(({ icon, step, body }) => (
+            <div key={step} className="section-card">
+              <div className="text-3xl mb-3">{icon}</div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-2 text-sm">{step}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Why Choose ───────────────────────────────────────────────── */}
+      <section className="mt-8 section-card">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Why Choose Our Free Word Counter?</h2>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
+          Our <strong>free online word counter</strong> is a browser-based writing tool — no sign-up, no downloads,
+          nothing stored on our servers. It counts words, characters, sentences, and paragraphs while checking
+          your{' '}
+          <a href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-dark">
+            readability score
+          </a>{' '}
+          and <strong>keyword density</strong> in real time. Upload <strong>TXT, DOCX, or PDF</strong> files,
+          compare two documents for similarity, or paste a URL to count words on any webpage.
+        </p>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          {[
+            ['Free and unlimited', 'No registration or payment ever required.'],
+            ['100% client-side', 'Your text never leaves your browser.'],
+            ['Real-time counting', 'Stats update instantly as you type.'],
+            ['Readability analysis', 'Flesch Reading Ease score and FK Grade Level.'],
+            ['Keyword density', 'Top keywords with frequency, density, and SEO tips.'],
+            ['Auto-save', 'Never lose your work — drafts save automatically.'],
+            ['File upload', 'Import TXT, DOCX, and PDF documents instantly.'],
+            ['Activity tracker', 'Set daily word goals and monitor your streak.'],
+          ].map(([title, desc]) => (
+            <li key={title} className="flex items-start gap-2 text-sm">
+              <span className="text-green-500 mt-0.5 shrink-0">✓</span>
+              <span className="text-gray-600 dark:text-gray-400"><strong className="text-gray-800 dark:text-gray-200">{title}</strong> — {desc}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* ── FAQ ──────────────────────────────────────────────────────── */}
+      <section className="mt-8">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Frequently Asked Questions</h2>
+        <div className="space-y-3">
+          {[
+            {
+              q: 'What is a word counter tool?',
+              a: 'A word counter tool is a free online application that counts the number of words, characters, sentences, and paragraphs in a piece of text. It is used by writers, students, bloggers, and SEO professionals to track content length and quality.',
+            },
+            {
+              q: 'How does a word counter help with SEO?',
+              a: 'A word counter helps with SEO by letting you monitor keyword density, content length, and readability — all of which influence search rankings. Maintaining a keyword density of 1–3% and a Flesch Reading Ease score above 60 can improve how search engines evaluate your content.',
+            },
+            {
+              q: 'What is keyword density and why does it matter?',
+              a: 'Keyword density is the percentage of times a target keyword appears in your text relative to the total word count. The ideal range for SEO is 1–3%. Going above that risks being flagged for keyword stuffing, which can hurt your rankings.',
+            },
+            {
+              q: 'What is a good Flesch Reading Ease score?',
+              a: 'A Flesch Reading Ease score between 60 and 70 is ideal for most web content — it means the average adult can read it comfortably. Scores above 70 are very easy to read; scores below 30 indicate dense academic or legal writing.',
+            },
+          ].map(({ q, a }) => (
+            <div key={q} className="section-card">
+              <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">{q}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{a}</p>
+            </div>
+          ))}
         </div>
       </section>
     </Layout>
