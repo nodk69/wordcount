@@ -14,8 +14,14 @@ const Navbar = ({ theme, toggleTheme, onShare }) => {
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 shrink-0">
-            <span className="text-2xl" aria-hidden="true">📝</span>
-            <span className="text-xl font-bold text-gray-900 dark:text-white">WordCounter</span>
+            <img
+              src="/android-chrome-192x192.png"
+              alt="CountsYourWords logo"
+              className="h-8 w-8 rounded-lg"
+              width="32"
+              height="32"
+            />
+            <span className="text-xl font-bold text-gray-900 dark:text-white">CountsYourWords</span>
           </Link>
 
           {/* Desktop nav */}

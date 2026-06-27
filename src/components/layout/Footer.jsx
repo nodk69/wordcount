@@ -21,8 +21,14 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <Link to="/" className="flex items-center gap-2 mb-3">
-              <span className="text-2xl" aria-hidden="true">📝</span>
-              <span className="text-xl font-bold text-gray-900 dark:text-white">WordCounter</span>
+              <img
+                src="/android-chrome-192x192.png"
+                alt="CountsYourWords logo"
+                className="h-8 w-8 rounded-lg"
+                width="32"
+                height="32"
+              />
+              <span className="text-xl font-bold text-gray-900 dark:text-white">CountsYourWords</span>
             </Link>
             <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
               Free online word counter with real-time statistics, readability analysis, and keyword density tracking.
@@ -68,7 +74,7 @@ const Footer = () => {
 
         {/* Bottom bar */}
         <div className="border-t border-gray-200 dark:border-dark-border mt-8 pt-6 text-center text-sm text-gray-500 dark:text-gray-400">
-          <p>© 2026 WordCounter. All rights reserved.</p>
+          <p>© 2026 CountsYourWords. All rights reserved.</p>
         </div>
       </div>
     </footer>
