@@ -281,7 +281,7 @@ const EditorToolbar = ({ text, stats, onClear, onShare, highlightsEnabled, setHi
             </button>
             <button
               onClick={() => { setUrlOpen(false); setUrlError(''); }}
-              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 p-1"
+              className="text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-200 p-1"
               aria-label="Close URL input"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -292,7 +292,7 @@ const EditorToolbar = ({ text, stats, onClear, onShare, highlightsEnabled, setHi
           {urlError && (
             <p className="text-xs text-red-500">{urlError}</p>
           )}
-          <p className="text-xs text-gray-400 dark:text-gray-500">
+          <p className="text-xs text-gray-500 dark:text-gray-400">
             Paste any article or webpage URL — we'll extract the readable text and load it into the editor.
           </p>
         </div>

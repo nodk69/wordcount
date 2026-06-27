@@ -71,8 +71,8 @@ const BlogPost = ({ slug, title, date, category, excerpt, readTime }) => (
       <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${categoryColors[category]}`}>
         {category}
       </span>
-      <span className="text-xs text-gray-400">{date}</span>
-      <span className="text-xs text-gray-400">· {readTime}</span>
+      <span className="text-xs text-gray-500 dark:text-gray-400">{date}</span>
+      <span className="text-xs text-gray-500 dark:text-gray-400">· {readTime}</span>
     </div>
     <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2 leading-snug">
       <Link to={`/blog/${slug}`} className="hover:text-primary transition-colors">
@@ -101,7 +101,7 @@ const Blog = () => (
     <div className="section-card mb-8 bg-gradient-to-br from-primary/5 to-secondary/5 border-primary/20">
       <div className="flex items-center gap-3 mb-3">
         <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-primary text-white">Featured</span>
-        <span className="text-xs text-gray-400">{posts[0].date} · {posts[0].readTime}</span>
+        <span className="text-xs text-gray-500 dark:text-gray-400">{posts[0].date} · {posts[0].readTime}</span>
       </div>
       <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{posts[0].title}</h2>
       <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">{posts[0].excerpt}</p>

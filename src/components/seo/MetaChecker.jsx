@@ -54,7 +54,7 @@ const FieldChecker = ({ label, value, onChange, min, max, placeholder, rows = 1 
         <div className={`h-full ${barColor} rounded-full transition-all duration-300`} style={{ width: `${barPct}%` }} />
       </div>
 
-      <div className="text-xs text-gray-400 mt-1">Optimal: {min}–{max} characters</div>
+      <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Optimal: {min}–{max} characters</div>
     </div>
   );
 };

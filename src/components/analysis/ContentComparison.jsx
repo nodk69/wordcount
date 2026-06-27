@@ -36,7 +36,7 @@ const WordBadges = ({ words, color }) =>
       ))}
     </div>
   ) : (
-    <span className="text-xs text-gray-400">None</span>
+    <span className="text-xs text-gray-500 dark:text-gray-400">None</span>
   );
 
 const ContentComparison = () => {
@@ -75,7 +75,7 @@ const ContentComparison = () => {
             placeholder="Paste first text here..."
             className="w-full h-32 p-3 text-sm text-gray-900 dark:text-white bg-white dark:bg-dark border border-gray-200 dark:border-dark-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary resize-none"
           />
-          <div className="text-xs text-gray-400 mt-1">{text1.split(/\s+/).filter(Boolean).length} words</div>
+          <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">{text1.split(/\s+/).filter(Boolean).length} words</div>
         </div>
         <div>
           <label className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1 block">
@@ -87,7 +87,7 @@ const ContentComparison = () => {
             placeholder="Paste second text here..."
             className="w-full h-32 p-3 text-sm text-gray-900 dark:text-white bg-white dark:bg-dark border border-gray-200 dark:border-dark-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary resize-none"
           />
-          <div className="text-xs text-gray-400 mt-1">{text2.split(/\s+/).filter(Boolean).length} words</div>
+          <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">{text2.split(/\s+/).filter(Boolean).length} words</div>
         </div>
       </div>
 
@@ -128,7 +128,7 @@ const ContentComparison = () => {
       )}
 
       {!canCompare && (
-        <div className="text-center py-6 text-gray-400 dark:text-gray-600">
+        <div className="text-center py-6 text-gray-500 dark:text-gray-400">
           <div className="text-3xl mb-2">⚖️</div>
           <p className="text-sm">Enter text in both boxes to compare similarity</p>
         </div>

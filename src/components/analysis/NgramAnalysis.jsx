@@ -10,7 +10,7 @@ const NgramTable = ({ items, label }) => {
     <div className="space-y-2">
       {items.map(({ phrase, count, density }, i) => (
         <div key={phrase} className="flex items-center gap-3 p-2.5 rounded-lg bg-gray-50 dark:bg-dark hover:bg-gray-100 dark:hover:bg-dark-border transition-colors">
-          <span className="text-xs font-bold text-gray-400 w-5 shrink-0">{i + 1}</span>
+          <span className="text-xs font-bold text-gray-500 dark:text-gray-400 w-5 shrink-0">{i + 1}</span>
           <span className="flex-1 font-medium text-gray-900 dark:text-white text-sm truncate">{phrase}</span>
           <span className="text-xs text-gray-500 dark:text-gray-400 shrink-0">{count}x &nbsp;{density}%</span>
           <div className="w-16 h-1.5 bg-gray-200 dark:bg-dark-border rounded-full overflow-hidden shrink-0">

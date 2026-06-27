@@ -27,7 +27,7 @@ const CookieConsent = () => {
         <p className="text-sm text-gray-600 dark:text-gray-300 text-center sm:text-left">
           We use cookies to analyse traffic and improve your experience.{' '}
           <Link to="/cookie-policy" className="text-primary hover:text-primary-dark underline">
-            Learn more
+            Learn more about how we use cookies
           </Link>
         </p>
         <div className="flex gap-3 shrink-0">

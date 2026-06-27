@@ -13,7 +13,7 @@ const HeadingRow = ({ tag, items, color }) => (
         ))}
       </ul>
     ) : (
-      <p className="text-xs text-gray-400 pl-3">None detected</p>
+      <p className="text-xs text-gray-500 dark:text-gray-400 pl-3">None detected</p>
     )}
   </div>
 );

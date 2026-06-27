@@ -42,7 +42,7 @@ const TextEditor = ({ text, setText, saveStatus }) => {
               {saveStatus}
             </span>
           )}
-          <span className="text-xs text-gray-400 bg-white dark:bg-dark px-1">
+          <span className="text-xs text-gray-500 dark:text-gray-400 bg-white dark:bg-dark px-1">
             {text.length.toLocaleString()} chars
           </span>
         </div>

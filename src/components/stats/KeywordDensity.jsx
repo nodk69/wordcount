@@ -42,7 +42,7 @@ const KeywordDensity = ({ keywords }) => {
               className="p-2.5 rounded-lg bg-gray-50 dark:bg-dark hover:bg-gray-100 dark:hover:bg-dark-border transition-colors"
             >
               <div className="flex items-center gap-3">
-                <span className="text-xs font-bold text-gray-400 w-5 shrink-0">{index + 1}</span>
+                <span className="text-xs font-bold text-gray-500 dark:text-gray-400 w-5 shrink-0">{index + 1}</span>
                 <span className="font-medium text-gray-900 dark:text-white flex-1 truncate">{word}</span>
                 <span className="text-xs text-gray-500 dark:text-gray-400 shrink-0">{count}x &nbsp;{density}%</span>
                 <div className="w-16 h-1.5 bg-gray-200 dark:bg-dark-border rounded-full overflow-hidden shrink-0">

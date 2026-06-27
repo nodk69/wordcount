@@ -1,0 +1,30 @@
+# CountsYourWords
+
+> Free online word counter with real-time statistics, readability analysis, and keyword density tracking. All processing happens client-side in the browser — no text is ever sent to a server.
+
+## Tools
+
+- [Word Counter](https://countsyourwords.netlify.app/): Count words, characters, sentences, and paragraphs in real time. Includes reading time, speaking time, and writing time estimates.
+
+## Analysis Features
+
+- [Keyword Density Checker](https://countsyourwords.netlify.app/): Analyse top keywords by frequency and density percentage with SEO recommendations.
+- [Readability Score](https://countsyourwords.netlify.app/): Flesch Reading Ease score and Flesch-Kincaid Grade Level with actionable improvement tips.
+- [N-Gram Analyser](https://countsyourwords.netlify.app/): Extract top bigrams and trigrams from any text.
+- [Content Comparison](https://countsyourwords.netlify.app/): Compare two documents for cosine similarity and shared vocabulary.
+- [SEO Meta Checker](https://countsyourwords.netlify.app/): Validate meta title and description length with a live Google preview.
+- [Heading Analyser](https://countsyourwords.netlify.app/): Detect H1, H2, and H3 headings in markdown-formatted text.
+
+## Resources
+
+- [Blog](https://countsyourwords.netlify.app/blog): Writing guides, SEO tips, and readability tutorials.
+- [Writing Tips](https://countsyourwords.netlify.app/writing-tips): Evidence-based techniques for clearer, sharper writing.
+- [FAQ](https://countsyourwords.netlify.app/faq): Answers to common questions about word counting and readability.
+- [About](https://countsyourwords.netlify.app/about): Mission, features, and privacy commitment.
+
+## Legal
+
+- [Privacy Policy](https://countsyourwords.netlify.app/privacy-policy): No data is collected or transmitted. localStorage is used only for auto-save and preferences.
+- [Terms of Service](https://countsyourwords.netlify.app/terms-of-service): Usage terms for the CountsYourWords service.
+- [Cookie Policy](https://countsyourwords.netlify.app/cookie-policy): We do not use cookies. localStorage is used instead and never transmitted.
+- [Contact](https://countsyourwords.netlify.app/contact): hello@wordcounter.app

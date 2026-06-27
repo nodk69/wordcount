@@ -144,8 +144,8 @@ const BlogPost = () => {
             <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-primary/10 text-primary">
               {article.category}
             </span>
-            <span className="text-sm text-gray-400">{article.date}</span>
-            <span className="text-sm text-gray-400">· {article.readTime}</span>
+            <span className="text-sm text-gray-500 dark:text-gray-400">{article.date}</span>
+            <span className="text-sm text-gray-500 dark:text-gray-400">· {article.readTime}</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white leading-tight">
             {article.title}
