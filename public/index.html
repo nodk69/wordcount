@@ -126,9 +126,9 @@
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
-    <!-- Third-party scripts deferred to after page load to avoid blocking LCP -->
+    <!-- Third-party scripts loaded at browser idle time to avoid contributing to TBT -->
     <script>
-      window.addEventListener('load', function () {
+      function loadThirdPartyScripts() {
         // Google Analytics GA4
         var ga = document.createElement('script');
         ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-W0QZ7LLC8P';
@@ -148,7 +148,20 @@
         s.async = true;
         s.crossOrigin = 'anonymous';
         document.head.appendChild(s);
-      });
+      }
+
+      // Load during idle time after page is fully loaded.
+      // requestIdleCallback pushes execution past TTI so it doesn't count as TBT.
+      // Fallback: setTimeout after load event for browsers without rIC.
+      if ('requestIdleCallback' in window) {
+        window.addEventListener('load', function () {
+          requestIdleCallback(loadThirdPartyScripts, { timeout: 4000 });
+        });
+      } else {
+        window.addEventListener('load', function () {
+          setTimeout(loadThirdPartyScripts, 1000);
+        });
+      }
     </script>
   </head>
   <body>
