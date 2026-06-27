@@ -1,5 +1,3 @@
-import mammoth from 'mammoth';
-
 export const parseFile = async (file) => {
   const ext = file.name.split('.').pop().toLowerCase();
 
@@ -27,6 +25,7 @@ const readAsText = (file) =>
 
 const parseDocx = async (file) => {
   const arrayBuffer = await file.arrayBuffer();
+  const { default: mammoth } = await import('mammoth');
   const result = await mammoth.extractRawText({ arrayBuffer });
   if (!result.value) {
     throw new Error('Could not extract text from this document');

@@ -1,17 +1,8 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect, useRef, lazy, Suspense } from 'react';
 import Layout from '../components/layout/Layout';
 import TextEditor from '../components/editor/TextEditor';
 import EditorToolbar from '../components/editor/EditorToolbar';
-import SentenceHighlights from '../components/editor/SentenceHighlights';
 import StatsGrid from '../components/stats/StatsGrid';
-import KeywordDensity from '../components/stats/KeywordDensity';
-import ReadabilityScore from '../components/stats/ReadabilityScore';
-import NgramAnalysis from '../components/analysis/NgramAnalysis';
-import ContentComparison from '../components/analysis/ContentComparison';
-import MetaChecker from '../components/seo/MetaChecker';
-import HeadingAnalysis from '../components/seo/HeadingAnalysis';
-import ActivityTracker from '../components/activity/ActivityTracker';
-import ContentHistory from '../components/history/ContentHistory';
 import { useTheme } from '../hooks/useTheme';
 import { useAutoSave } from '../hooks/useAutoSave';
 import { usePageMeta } from '../hooks/usePageMeta';
@@ -20,6 +11,24 @@ import { useDebounce } from '../hooks/useDebounce';
 import { useWordCounter } from '../hooks/useWordCounter';
 import { useContentHistory } from '../hooks/useContentHistory';
 import { copyToClipboard } from '../utils/helpers';
+
+const SentenceHighlights = lazy(() => import('../components/editor/SentenceHighlights'));
+const KeywordDensity     = lazy(() => import('../components/stats/KeywordDensity'));
+const ReadabilityScore   = lazy(() => import('../components/stats/ReadabilityScore'));
+const NgramAnalysis      = lazy(() => import('../components/analysis/NgramAnalysis'));
+const ContentComparison  = lazy(() => import('../components/analysis/ContentComparison'));
+const MetaChecker        = lazy(() => import('../components/seo/MetaChecker'));
+const HeadingAnalysis    = lazy(() => import('../components/seo/HeadingAnalysis'));
+const ActivityTracker    = lazy(() => import('../components/activity/ActivityTracker'));
+const ContentHistory     = lazy(() => import('../components/history/ContentHistory'));
+
+const AnalysisSkeleton = () => (
+  <div className="animate-pulse space-y-4 mt-4">
+    <div className="h-8 w-64 bg-gray-100 dark:bg-dark-card rounded-lg mt-6" />
+    <div className="h-48 bg-gray-100 dark:bg-dark-card rounded-xl" />
+    <div className="h-40 bg-gray-100 dark:bg-dark-card rounded-xl" />
+  </div>
+);
 
 const TABS = [
   { id: 'keywords', label: '📊 Keywords' },
@@ -150,48 +159,50 @@ const Home = () => {
         onFileLoaded={handleFileLoaded}
       />
 
-      {highlightsEnabled && text && <SentenceHighlights text={debouncedText} />}
-
       <section aria-labelledby="stats-heading">
         <h2 id="stats-heading" className="sr-only">Real-Time Text Statistics</h2>
         <StatsGrid stats={stats} />
       </section>
 
-      <TabBar active={activeTab} onChange={setActiveTab} />
+      <Suspense fallback={<AnalysisSkeleton />}>
+        {highlightsEnabled && text && <SentenceHighlights text={debouncedText} />}
 
-      <div className="mt-4">
-        {activeTab === 'keywords' && (
-          <KeywordDensity keywords={stats.keywords} />
-        )}
-        {activeTab === 'phrases' && (
-          <NgramAnalysis text={debouncedText} />
-        )}
-        {activeTab === 'seo' && (
-          <>
-            <MetaChecker />
-            <HeadingAnalysis headings={stats.headings} />
-          </>
-        )}
-      </div>
+        <TabBar active={activeTab} onChange={setActiveTab} />
 
-      <ReadabilityScore
-        readability={stats.readability}
-        fkGrade={stats.fkGrade}
-        readingTime={stats.readingTime}
-        speakingTime={stats.speakingTime}
-        writingTime={stats.writingTime}
-      />
+        <div className="mt-4">
+          {activeTab === 'keywords' && (
+            <KeywordDensity keywords={stats.keywords} />
+          )}
+          {activeTab === 'phrases' && (
+            <NgramAnalysis text={debouncedText} />
+          )}
+          {activeTab === 'seo' && (
+            <>
+              <MetaChecker />
+              <HeadingAnalysis headings={stats.headings} />
+            </>
+          )}
+        </div>
 
-      <ContentComparison />
+        <ReadabilityScore
+          readability={stats.readability}
+          fkGrade={stats.fkGrade}
+          readingTime={stats.readingTime}
+          speakingTime={stats.speakingTime}
+          writingTime={stats.writingTime}
+        />
 
-      <ActivityTracker todayWords={todayWords} goal={goal} />
+        <ContentComparison />
 
-      <ContentHistory
-        history={history}
-        onLoad={handleHistoryLoad}
-        onDelete={deleteEntry}
-        onClear={clearHistory}
-      />
+        <ActivityTracker todayWords={todayWords} goal={goal} />
+
+        <ContentHistory
+          history={history}
+          onLoad={handleHistoryLoad}
+          onDelete={deleteEntry}
+          onClear={clearHistory}
+        />
+      </Suspense>
 
       {/* ── How It Works ─────────────────────────────────────────────── */}
       <section className="mt-10">
