@@ -96,6 +96,7 @@ const Blog = () => (
   <PageLayout
     title="Blog"
     subtitle="Writing tips, SEO guides, and insights for content creators."
+    centered
   >
     {/* Featured post */}
     <div className="section-card mb-8 bg-gradient-to-br from-primary/5 to-secondary/5 border-primary/20">

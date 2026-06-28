@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import PageLayout from '../components/layout/PageLayout';
+import { BarChart2, BookOpen, Search, FileText, FolderOpen, Scale, Save, Lock } from 'lucide-react';
 
 const stats = [
   { value: '18+', label: 'Real-Time Metrics' },
@@ -10,42 +11,42 @@ const stats = [
 
 const features = [
   {
-    icon: '📊',
+    icon: <BarChart2 className="w-6 h-6 text-primary" />,
     title: 'Real-Time Statistics',
     desc: 'Word count, character count, sentence count, paragraphs, syllables, pages, and 12 more metrics — all update instantly as you type.',
   },
   {
-    icon: '📖',
+    icon: <BookOpen className="w-6 h-6 text-primary" />,
     title: 'Readability Analysis',
     desc: 'Flesch Reading Ease score and Flesch-Kincaid Grade Level tell you exactly how accessible your writing is for your target audience.',
   },
   {
-    icon: '🔎',
+    icon: <Search className="w-6 h-6 text-primary" />,
     title: 'SEO Tools',
     desc: 'Keyword density checker with density recommendations, N-gram phrase analysis, and meta title and description length checker.',
   },
   {
-    icon: '🔍',
+    icon: <Search className="w-6 h-6 text-primary" />,
     title: 'Passive Voice Detector',
     desc: 'Automatically identifies passive voice sentences so you can rewrite them for clarity and stronger engagement.',
   },
   {
-    icon: '📑',
+    icon: <FileText className="w-6 h-6 text-primary" />,
     title: 'Heading Structure',
     desc: 'Parses H1, H2, and H3 headings from your text and checks whether your structure follows SEO best practices.',
   },
   {
-    icon: '📁',
+    icon: <FolderOpen className="w-6 h-6 text-primary" />,
     title: 'File Upload',
     desc: 'Upload and analyse TXT, DOCX, and PDF files directly in the browser. No upload to a server — all processing happens on your device.',
   },
   {
-    icon: '⚖️',
+    icon: <Scale className="w-6 h-6 text-primary" />,
     title: 'Content Comparison',
     desc: 'Paste two pieces of text to measure their cosine similarity. Useful for checking duplicate content and paraphrase detection.',
   },
-  {
-    icon: '💾',
+{
+    icon: <Save className="w-6 h-6 text-primary" />,
     title: 'Auto-Save & History',
     desc: 'Your text is automatically saved to your browser\'s localStorage. Content history lets you revisit and restore previous sessions.',
   },
@@ -53,8 +54,9 @@ const features = [
 
 const About = () => (
   <PageLayout
-    title="About WordCounter"
+    title="About CountsYourWords"
     subtitle="A free, privacy-first writing analysis tool built for writers, marketers, and students."
+    centered
   >
     {/* Stats row */}
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
@@ -70,38 +72,42 @@ const About = () => (
     <div className="section-card mb-8">
       <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Our Mission</h2>
       <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-        WordCounter was built for one reason: to give writers a fast, honest picture of their text
+        CountsYourWords was built for one reason: to give writers a fast, honest picture of their text
         without ads, paywalls, or sign-up walls. Every statistic updates instantly. Nothing leaves
         your browser — your text is never sent to a server.
       </p>
       <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
         Good writing is measurable. Sentence length, readability score, keyword density, passive voice
-        percentage — these are not abstract concepts. They are numbers you can improve. WordCounter
+        percentage — these are not abstract concepts. They are numbers you can improve. CountsYourWords
         gives you those numbers in real time, so you can edit with intention rather than instinct.
       </p>
     </div>
 
     {/* Features grid */}
-    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">What WordCounter Does</h2>
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-      {features.map(({ icon, title, desc }) => (
-        <div key={title} className="section-card flex gap-4">
-          <span className="text-2xl shrink-0">{icon}</span>
-          <div>
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-1">{title}</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{desc}</p>
+    <div className="mb-8 bg-white dark:bg-dark-card rounded-xl shadow-sm border border-gray-100 dark:border-dark-border p-6">
+      <h2 className="text-base font-semibold text-gray-900 dark:text-white flex items-center gap-2 mb-4">
+        <BarChart2 className="w-4 h-4 text-primary" /> What CountsYourWords Does
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {features.map(({ icon, title, desc }) => (
+          <div key={title} className="bg-gray-50 dark:bg-dark rounded-lg p-4 flex gap-4">
+            <span className="shrink-0 mt-0.5">{icon}</span>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">{title}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{desc}</p>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
 
     {/* Privacy */}
     <div className="section-card mb-8 border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/20">
       <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-        <span>🔒</span> Privacy First
+        <Lock className="w-5 h-5 text-green-600 dark:text-green-400" /> Privacy First
       </h2>
       <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-        WordCounter processes everything locally in your browser. Your text is never transmitted to
+        CountsYourWords processes everything locally in your browser. Your text is never transmitted to
         any server. Auto-saved drafts are stored only in your own browser's localStorage and never
         leave your device. There are no analytics scripts that read your text content.
       </p>
@@ -113,7 +119,7 @@ const About = () => (
       <p className="text-gray-600 dark:text-gray-400 mb-5">
         Paste your text and get instant analysis — no account needed.
       </p>
-      <Link to="/" className="btn-primary">Open the Word Counter</Link>
+      <Link to="/" className="btn-primary">Open CountsYourWords</Link>
     </div>
   </PageLayout>
 );

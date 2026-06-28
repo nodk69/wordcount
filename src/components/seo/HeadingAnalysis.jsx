@@ -1,3 +1,5 @@
+import { LayoutList, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
+
 const HeadingRow = ({ tag, items, color }) => (
   <div className="mb-3">
     <div className="flex items-center gap-2 mb-1.5">
@@ -19,24 +21,44 @@ const HeadingRow = ({ tag, items, color }) => (
 );
 
 const SEO_TIPS = [
-  { check: (h) => h.h1.length === 1, pass: '✅ One H1 tag — correct for SEO', fail: (h) => h.h1.length === 0 ? '❌ Missing H1 — every page needs one H1' : '⚠️ Multiple H1 tags — use only one H1' },
-  { check: (h) => h.h2.length > 0, pass: '✅ H2 tags present — good structure', fail: () => '⚠️ No H2 tags — add subheadings for better structure' },
-  { check: (h) => h.h1.length + h.h2.length + h.h3.length > 0 || true, pass: '', fail: () => '' },
+  {
+    check: (h) => h.h1.length === 1,
+    pass: { type: 'pass', msg: 'One H1 tag — correct for SEO' },
+    fail: (h) => h.h1.length === 0
+      ? { type: 'fail', msg: 'Missing H1 — every page needs one H1' }
+      : { type: 'warn', msg: 'Multiple H1 tags — use only one H1' },
+  },
+  {
+    check: (h) => h.h2.length > 0,
+    pass: { type: 'pass', msg: 'H2 tags present — good structure' },
+    fail: () => ({ type: 'warn', msg: 'No H2 tags — add subheadings for better structure' }),
+  },
 ];
+
+const TipIcon = ({ type }) => {
+  if (type === 'pass') return <CheckCircle className="w-3.5 h-3.5 shrink-0" />;
+  if (type === 'fail') return <XCircle className="w-3.5 h-3.5 shrink-0" />;
+  return <AlertTriangle className="w-3.5 h-3.5 shrink-0" />;
+};
+
+const tipColor = (type) =>
+  type === 'pass' ? 'text-green-600 dark:text-green-400' :
+  type === 'fail' ? 'text-red-600 dark:text-red-400' :
+  'text-yellow-600 dark:text-yellow-400';
 
 const HeadingAnalysis = ({ headings }) => {
   const { h1, h2, h3 } = headings;
   const total = h1.length + h2.length + h3.length;
 
   const tips = SEO_TIPS
-    .map((t) => ({ msg: t.check(headings) ? t.pass : t.fail(headings), pass: t.check(headings) }))
-    .filter((t) => t.msg);
+    .map((t) => t.check(headings) ? t.pass : t.fail(headings))
+    .filter(Boolean);
 
   return (
     <div className="section-card mt-4">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-base font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-          <span aria-hidden="true">📑</span> Heading Structure
+          <LayoutList className="w-5 h-5 text-primary" /> Heading Structure
         </h3>
         <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-dark px-2 py-1 rounded-full">
           {total} total heading{total !== 1 ? 's' : ''}
@@ -59,12 +81,11 @@ const HeadingAnalysis = ({ headings }) => {
         </>
       )}
 
-      {/* SEO Tips */}
       {tips.length > 0 && (
         <div className="mt-3 space-y-1.5">
           {tips.map((t, i) => (
-            <p key={i} className={`text-xs ${t.pass ? 'text-green-600 dark:text-green-400' : t.msg.startsWith('❌') ? 'text-red-600 dark:text-red-400' : 'text-yellow-600 dark:text-yellow-400'}`}>
-              {t.msg}
+            <p key={i} className={`text-xs flex items-center gap-1.5 ${tipColor(t.type)}`}>
+              <TipIcon type={t.type} />{t.msg}
             </p>
           ))}
         </div>

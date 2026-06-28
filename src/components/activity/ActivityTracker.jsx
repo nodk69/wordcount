@@ -1,4 +1,5 @@
 import { DAILY_GOAL } from '../../utils/constants';
+import { PenLine, Trophy } from 'lucide-react';
 
 const ActivityTracker = ({ todayWords, goal = DAILY_GOAL }) => {
   const percentage = Math.min((todayWords / goal) * 100, 100);
@@ -8,11 +9,11 @@ const ActivityTracker = ({ todayWords, goal = DAILY_GOAL }) => {
     <div className="section-card mt-6">
       <div className="flex items-center justify-between mb-3">
         <h2 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-          <span aria-hidden="true">✍️</span> Today&apos;s Writing Goal
+          <PenLine className="w-5 h-5 text-primary" /> Today&apos;s Writing Goal
         </h2>
         {achieved && (
-          <span className="text-xs font-medium text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded-full">
-            🎉 Goal reached!
+          <span className="text-xs font-medium text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded-full flex items-center gap-1">
+            <Trophy className="w-3.5 h-3.5" /> Goal reached!
           </span>
         )}
       </div>

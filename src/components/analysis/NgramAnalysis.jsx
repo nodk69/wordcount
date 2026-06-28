@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { Link2 } from 'lucide-react';
 import { getNgrams } from '../../utils/ngramAnalyzer';
 
 const NgramTable = ({ items, label }) => {
@@ -34,7 +35,7 @@ const NgramAnalysis = ({ text }) => {
   return (
     <div className="section-card mt-4">
       <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-        <span aria-hidden="true">🔗</span> Phrase Analysis (N-grams)
+        <Link2 className="w-5 h-5 text-primary" /> Phrase Analysis (N-grams)
       </h3>
 
       {/* Tab switcher */}

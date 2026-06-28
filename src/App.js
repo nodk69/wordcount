@@ -16,6 +16,10 @@ const PrivacyPolicy   = lazy(() => import('./pages/PrivacyPolicy'));
 const TermsOfService  = lazy(() => import('./pages/TermsOfService'));
 const CookiePolicy    = lazy(() => import('./pages/CookiePolicy'));
 const Contact         = lazy(() => import('./pages/Contact'));
+const Support         = lazy(() => import('./pages/Support'));
+const ToolsComingSoon = lazy(() => import('./pages/ToolsComingSoon'));
+const JsonFormatter        = lazy(() => import('./pages/JsonFormatter'));
+const ContentComparisonPage = lazy(() => import('./pages/ContentComparisonPage'));
 
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-light dark:bg-dark">
@@ -39,6 +43,10 @@ function App() {
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/cookie-policy"   element={<CookiePolicy />} />
           <Route path="/contact"         element={<Contact />} />
+          <Route path="/support"         element={<Support />} />
+          <Route path="/tools"           element={<ToolsComingSoon />} />
+          <Route path="/json-formatter"       element={<JsonFormatter />} />
+          <Route path="/content-comparison"  element={<ContentComparisonPage />} />
           <Route path="*"                element={<NotFound />} />
         </Routes>
       </Suspense>

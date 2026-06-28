@@ -1,4 +1,33 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+
+const FooterGroup = ({ title, links }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="w-full flex items-center justify-between py-1 sm:cursor-default sm:pointer-events-none"
+        aria-expanded={open}
+      >
+        <h3 className="font-semibold text-gray-900 dark:text-white">{title}</h3>
+        <svg
+          className={`w-4 h-4 text-gray-400 transition-transform duration-200 sm:hidden ${open ? 'rotate-180' : ''}`}
+          fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      <ul className={`overflow-hidden transition-all duration-300 ease-in-out sm:!max-h-none sm:!opacity-100 space-y-2 mt-3 ${open ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0 sm:max-h-none sm:opacity-100'}`}>
+        {links.map(({ label, to }) => (
+          <li key={label}>
+            <Link to={to} className="text-sm text-gray-600 dark:text-gray-400 hover:text-primary transition-colors">{label}</Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 const Footer = () => {
   const resources = [
@@ -48,28 +77,10 @@ const Footer = () => {
           </div>
 
           {/* Resources */}
-          <div>
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-3">Resources</h3>
-            <ul className="space-y-2">
-              {resources.map(({ label, to }) => (
-                <li key={label}>
-                  <Link to={to} className="text-sm text-gray-600 dark:text-gray-400 hover:text-primary transition-colors">{label}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <FooterGroup title="Resources" links={resources} />
 
           {/* Legal */}
-          <div>
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-3">Legal</h3>
-            <ul className="space-y-2">
-              {legal.map(({ label, to }) => (
-                <li key={label}>
-                  <Link to={to} className="text-sm text-gray-600 dark:text-gray-400 hover:text-primary transition-colors">{label}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <FooterGroup title="Legal" links={legal} />
         </div>
 
         {/* Bottom bar */}

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Clock } from 'lucide-react';
 
 const formatDate = (iso) => {
   const d = new Date(iso);
@@ -14,7 +15,7 @@ const ContentHistory = ({ history, onLoad, onDelete, onClear }) => {
     <div className="section-card mt-6">
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-          <span aria-hidden="true">🕒</span> Content History
+          <Clock className="w-5 h-5 text-primary" /> Content History
           <span className="text-xs font-normal bg-gray-100 dark:bg-dark text-gray-500 dark:text-gray-400 px-2 py-0.5 rounded-full">
             {history.length}
           </span>

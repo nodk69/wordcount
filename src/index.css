@@ -36,6 +36,18 @@
   border-radius: 2px;
 }
 
+/* JSON Formatter syntax highlighting */
+.jf-key  { color: #1d4ed8; }
+.dark .jf-key  { color: #93c5fd; }
+.jf-str  { color: #16a34a; }
+.dark .jf-str  { color: #86efac; }
+.jf-num  { color: #ea580c; }
+.dark .jf-num  { color: #fdba74; }
+.jf-bool { color: #7c3aed; }
+.dark .jf-bool { color: #c4b5fd; }
+.jf-null { color: #dc2626; }
+.dark .jf-null { color: #fca5a5; }
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 6px;

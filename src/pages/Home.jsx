@@ -3,23 +3,39 @@ import Layout from '../components/layout/Layout';
 import TextEditor from '../components/editor/TextEditor';
 import EditorToolbar from '../components/editor/EditorToolbar';
 import StatsGrid from '../components/stats/StatsGrid';
-import { useTheme } from '../hooks/useTheme';
 import { useAutoSave } from '../hooks/useAutoSave';
 import { usePageMeta } from '../hooks/usePageMeta';
-import { useActivityTracker } from '../hooks/useActivityTracker';
 import { useDebounce } from '../hooks/useDebounce';
 import { useWordCounter } from '../hooks/useWordCounter';
 import { useContentHistory } from '../hooks/useContentHistory';
 import { copyToClipboard } from '../utils/helpers';
+import { Rocket, Star, HelpCircle, FileText, Zap, BarChart2, Check, Link2, Search, ChevronDown } from 'lucide-react';
+
+const FaqItem = ({ q, a }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="border border-gray-200 dark:border-dark-border rounded-lg overflow-hidden">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="w-full flex items-center justify-between px-4 py-3 text-left bg-white dark:bg-dark-card hover:bg-gray-50 dark:hover:bg-dark transition-colors"
+        aria-expanded={open}
+      >
+        <h3 className="text-sm font-semibold text-gray-900 dark:text-white pr-4">{q}</h3>
+        <ChevronDown className={`w-4 h-4 text-gray-400 shrink-0 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+      </button>
+      <div className={`overflow-hidden transition-all duration-300 ease-in-out ${open ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
+        <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed px-4 pb-4 pt-1 bg-white dark:bg-dark-card">{a}</p>
+      </div>
+    </div>
+  );
+};
 
 const SentenceHighlights = lazy(() => import('../components/editor/SentenceHighlights'));
 const KeywordDensity     = lazy(() => import('../components/stats/KeywordDensity'));
 const ReadabilityScore   = lazy(() => import('../components/stats/ReadabilityScore'));
 const NgramAnalysis      = lazy(() => import('../components/analysis/NgramAnalysis'));
-const ContentComparison  = lazy(() => import('../components/analysis/ContentComparison'));
 const MetaChecker        = lazy(() => import('../components/seo/MetaChecker'));
 const HeadingAnalysis    = lazy(() => import('../components/seo/HeadingAnalysis'));
-const ActivityTracker    = lazy(() => import('../components/activity/ActivityTracker'));
 const ContentHistory     = lazy(() => import('../components/history/ContentHistory'));
 
 const AnalysisSkeleton = () => (
@@ -31,24 +47,24 @@ const AnalysisSkeleton = () => (
 );
 
 const TABS = [
-  { id: 'keywords', label: '📊 Keywords' },
-  { id: 'phrases',  label: '🔗 Phrases' },
-  { id: 'seo',      label: '🔎 SEO Tools' },
+  { id: 'keywords', label: 'Keywords',  icon: <BarChart2 className="w-4 h-4" /> },
+  { id: 'phrases',  label: 'Phrases',   icon: <Link2 className="w-4 h-4" /> },
+  { id: 'seo',      label: 'SEO Tools', icon: <Search className="w-4 h-4" /> },
 ];
 
 const TabBar = ({ active, onChange }) => (
   <div className="flex gap-1 bg-gray-100 dark:bg-dark-card rounded-lg p-1 w-fit mt-6 mb-0">
-    {TABS.map(({ id, label }) => (
+    {TABS.map(({ id, label, icon }) => (
       <button
         key={id}
         onClick={() => onChange(id)}
-        className={`px-4 py-2 text-sm rounded-md transition-colors whitespace-nowrap ${
+        className={`px-4 py-2 text-sm rounded-md transition-colors whitespace-nowrap flex items-center gap-1.5 ${
           active === id
             ? 'bg-white dark:bg-dark shadow-sm text-gray-900 dark:text-white font-medium'
             : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
         }`}
       >
-        {label}
+        {icon}{label}
       </button>
     ))}
   </div>
@@ -63,7 +79,6 @@ const decodeFromURL = (encoded) => {
 
 const Home = () => {
   const [text, setText] = useState('');
-  const [theme, toggleTheme] = useTheme();
   const [highlightsEnabled, setHighlightsEnabled] = useState(false);
   const [activeTab, setActiveTab] = useState('keywords');
   const historyTimerRef = useRef(null);
@@ -77,7 +92,6 @@ const Home = () => {
   const saveStatus = useAutoSave(text, setText);
   const debouncedText = useDebounce(text, 250);
   const stats = useWordCounter(debouncedText);
-  const { todayWords, goal } = useActivityTracker(stats.words);
   const { history, saveEntry, deleteEntry, clearHistory } = useContentHistory();
 
   useEffect(() => {
@@ -133,7 +147,7 @@ const Home = () => {
   }, []);
 
   return (
-    <Layout theme={theme} toggleTheme={toggleTheme} onShare={handleShare}>
+    <Layout>
       <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-white px-4 py-2 rounded-lg z-50">
         Skip to main content
       </a>
@@ -161,7 +175,13 @@ const Home = () => {
 
       <section aria-labelledby="stats-heading">
         <h2 id="stats-heading" className="sr-only">Real-Time Text Statistics</h2>
-        <StatsGrid stats={stats} />
+        {debouncedText.trim() ? (
+          <StatsGrid stats={stats} />
+        ) : (
+          <div className="mt-6 flex items-center justify-center py-8 rounded-xl border border-dashed border-gray-200 dark:border-dark-border text-gray-400 dark:text-gray-600 text-sm select-none">
+            Start typing to see your stats…
+          </div>
+        )}
       </section>
 
       <Suspense fallback={<AnalysisSkeleton />}>
@@ -192,10 +212,6 @@ const Home = () => {
           writingTime={stats.writingTime}
         />
 
-        <ContentComparison />
-
-        <ActivityTracker todayWords={todayWords} goal={goal} />
-
         <ContentHistory
           history={history}
           onLoad={handleHistoryLoad}
@@ -205,17 +221,19 @@ const Home = () => {
       </Suspense>
 
       {/* ── How It Works ─────────────────────────────────────────────── */}
-      <section className="mt-10">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-5">How Our Word Counter Tool Works</h2>
+      <section className="mt-8 bg-white dark:bg-dark-card rounded-xl shadow-sm border border-gray-100 dark:border-dark-border p-6">
+        <h2 className="text-base font-semibold text-gray-900 dark:text-white flex items-center gap-2 mb-4">
+          <Rocket className="w-4 h-4 text-primary" /> How Our Word Counter Works
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {[
-            { icon: '📝', step: '1. Type or Paste', body: 'Type directly or paste existing text into the editor. The free word counter starts analysing your content the moment you begin.' },
-            { icon: '⚡', step: '2. Get Real-Time Statistics', body: 'Instantly see your word count, character count, sentence count, paragraph count, reading time, and speaking time update as you write.' },
-            { icon: '📊', step: '3. Analyse & Improve', body: 'Use the readability score, keyword density checker, and n-gram analyser to refine your content for better engagement and higher SEO rankings.' },
+            { icon: <FileText className="w-6 h-6 text-primary" />, step: '1. Type or Paste', body: 'Type directly or paste existing text into the editor. The free word counter starts analysing your content the moment you begin.' },
+            { icon: <Zap className="w-6 h-6 text-yellow-500" />, step: '2. Get Real-Time Statistics', body: 'Instantly see your word count, character count, sentence count, paragraph count, reading time, and speaking time update as you write.' },
+            { icon: <BarChart2 className="w-6 h-6 text-primary" />, step: '3. Analyse & Improve', body: 'Use the readability score, keyword density checker, and n-gram analyser to refine your content for better engagement and higher SEO rankings.' },
           ].map(({ icon, step, body }) => (
-            <div key={step} className="section-card">
-              <div className="text-3xl mb-3">{icon}</div>
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-2 text-sm">{step}</h3>
+            <div key={step} className="bg-gray-50 dark:bg-dark rounded-lg p-4">
+              <div className="mb-3">{icon}</div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-1 text-sm">{step}</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{body}</p>
             </div>
           ))}
@@ -223,8 +241,10 @@ const Home = () => {
       </section>
 
       {/* ── Why Choose ───────────────────────────────────────────────── */}
-      <section className="mt-8 section-card">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Why Choose Our Free Word Counter?</h2>
+      <section className="mt-4 bg-white dark:bg-dark-card rounded-xl shadow-sm border border-gray-100 dark:border-dark-border p-6">
+        <h2 className="text-base font-semibold text-gray-900 dark:text-white flex items-center gap-2 mb-4">
+          <Star className="w-4 h-4 text-primary" /> Why Choose Our Free Word Counter?
+        </h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
           Our <strong>free online word counter</strong> is a browser-based writing tool — no sign-up, no downloads,
           nothing stored on our servers. It counts words, characters, sentences, and paragraphs while checking
@@ -232,8 +252,7 @@ const Home = () => {
           <a href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-dark">
             readability score
           </a>{' '}
-          and <strong>keyword density</strong> in real time. Upload <strong>TXT, DOCX, or PDF</strong> files,
-          compare two documents for similarity, or paste a URL to count words on any webpage.
+          and <strong>keyword density</strong> in real time.
         </p>
         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {[
@@ -247,7 +266,7 @@ const Home = () => {
             ['Activity tracker', 'Set daily word goals and monitor your streak.'],
           ].map(([title, desc]) => (
             <li key={title} className="flex items-start gap-2 text-sm">
-              <span className="text-green-500 mt-0.5 shrink-0">✓</span>
+              <Check className="w-3.5 h-3.5 text-green-500 mt-0.5 shrink-0" />
               <span className="text-gray-600 dark:text-gray-400"><strong className="text-gray-800 dark:text-gray-200">{title}</strong> — {desc}</span>
             </li>
           ))}
@@ -255,8 +274,10 @@ const Home = () => {
       </section>
 
       {/* ── FAQ ──────────────────────────────────────────────────────── */}
-      <section className="mt-8">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Frequently Asked Questions</h2>
+      <section className="mt-4 bg-white dark:bg-dark-card rounded-xl shadow-sm border border-gray-100 dark:border-dark-border p-6">
+        <h2 className="text-base font-semibold text-gray-900 dark:text-white flex items-center gap-2 mb-4">
+          <HelpCircle className="w-4 h-4 text-primary" /> Frequently Asked Questions
+        </h2>
         <div className="space-y-3">
           {[
             {
@@ -276,10 +297,7 @@ const Home = () => {
               a: 'A Flesch Reading Ease score between 60 and 70 is ideal for most web content — it means the average adult can read it comfortably. Scores above 70 are very easy to read; scores below 30 indicate dense academic or legal writing.',
             },
           ].map(({ q, a }) => (
-            <div key={q} className="section-card">
-              <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">{q}</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{a}</p>
-            </div>
+            <FaqItem key={q} q={q} a={a} />
           ))}
         </div>
       </section>

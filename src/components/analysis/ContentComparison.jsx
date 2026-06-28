@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { Scale } from 'lucide-react';
 import { cosineSimilarity, getSharedWords } from '../../utils/similarity';
 
 const SimilarityGauge = ({ score }) => {
@@ -58,7 +59,7 @@ const ContentComparison = () => {
   return (
     <div className="section-card mt-6">
       <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-        <span aria-hidden="true">⚖️</span> Content Comparison
+        <Scale className="w-5 h-5 text-primary" /> Content Comparison
       </h2>
       <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
         Paste two pieces of text to compare their similarity (useful for checking duplicate content).
@@ -129,7 +130,7 @@ const ContentComparison = () => {
 
       {!canCompare && (
         <div className="text-center py-6 text-gray-500 dark:text-gray-400">
-          <div className="text-3xl mb-2">⚖️</div>
+          <Scale className="w-8 h-8 text-gray-400 dark:text-gray-600 mx-auto mb-2" />
           <p className="text-sm">Enter text in both boxes to compare similarity</p>
         </div>
       )}

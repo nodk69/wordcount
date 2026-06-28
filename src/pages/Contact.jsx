@@ -1,5 +1,6 @@
 import { useForm, ValidationError } from '@formspree/react';
 import PageLayout from '../components/layout/PageLayout';
+import { CheckCircle, Mail, AtSign } from 'lucide-react';
 
 const inputBase =
   'w-full px-4 py-3 text-sm text-gray-900 dark:text-white bg-white dark:bg-dark border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-colors';
@@ -16,7 +17,7 @@ const Contact = () => {
     return (
       <PageLayout title="Contact Us">
         <div className="section-card max-w-lg mx-auto text-center py-12">
-          <div className="text-5xl mb-4">✅</div>
+          <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Message Sent</h2>
           <p className="text-gray-600 dark:text-gray-400">
             Thanks for reaching out. We will get back to you within 1–2 business days.
@@ -30,16 +31,17 @@ const Contact = () => {
     <PageLayout
       title="Contact Us"
       subtitle="Have a question, bug report, or feature request? We'd love to hear from you."
+      centered
     >
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-5xl">
         {/* Info sidebar */}
         <div className="space-y-4">
           {[
-            { icon: '📧', title: 'Email', desc: 'hello@wordcounter.app', sub: 'We reply within 1–2 business days.' },
-            { icon: '🐦', title: 'Twitter', desc: '@wordcounterapp', sub: 'Quick questions and updates.' },
+            { icon: <Mail className="w-6 h-6 text-primary" />, title: 'Email', desc: 'hello@wordcounter.app', sub: 'We reply within 1–2 business days.' },
+            { icon: <AtSign className="w-6 h-6 text-sky-500" />, title: 'Twitter / X', desc: '@wordcounterapp', sub: 'Quick questions and updates.' },
           ].map(({ icon, title, desc, sub }) => (
             <div key={title} className="section-card flex gap-3">
-              <span className="text-2xl shrink-0">{icon}</span>
+              <span className="shrink-0 mt-0.5">{icon}</span>
               <div>
                 <div className="font-semibold text-gray-900 dark:text-white text-sm">{title}</div>
                 <div className="text-sm text-primary">{desc}</div>

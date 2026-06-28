@@ -70,11 +70,11 @@ const FAQItem = ({ q, a }) => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </button>
-      {open && (
+      <div className={`overflow-hidden transition-all duration-300 ease-in-out ${open ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="px-5 pb-4 bg-white dark:bg-dark-card">
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">{a}</p>
         </div>
-      )}
+      </div>
     </div>
   );
 };

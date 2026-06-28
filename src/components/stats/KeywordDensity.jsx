@@ -1,3 +1,5 @@
+import { BarChart2 } from 'lucide-react';
+
 const getRecommendation = (density) => {
   if (density > 5) return { text: 'Too high — risk of keyword stuffing', color: 'text-red-600 dark:text-red-400' };
   if (density > 3) return { text: 'Slightly high — reduce slightly for naturalness', color: 'text-orange-600 dark:text-orange-400' };
@@ -11,7 +13,7 @@ const KeywordDensity = ({ keywords }) => {
     return (
       <div className="section-card mt-6">
         <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-          <span>📊</span> Top Keywords
+          <BarChart2 className="w-5 h-5 text-primary" /> Top Keywords
         </h2>
         <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-4">
           Start typing to see keyword analysis...
@@ -26,7 +28,7 @@ const KeywordDensity = ({ keywords }) => {
     <div className="section-card mt-6">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-          <span aria-hidden="true">📊</span> Top Keywords
+          <BarChart2 className="w-5 h-5 text-primary" /> Top Keywords
         </h2>
         <span className="text-xs text-gray-500 dark:text-gray-400">
           Ideal density: 1–3%

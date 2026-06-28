@@ -1,4 +1,5 @@
 import { getReadabilityColor } from '../../utils/readability';
+import { BookOpen, Lightbulb } from 'lucide-react';
 
 const fkGradeLabel = (grade) => {
   if (grade === null) return '—';
@@ -35,7 +36,7 @@ const ReadabilityScore = ({ readability, fkGrade, readingTime, speakingTime, wri
   return (
     <div className="section-card mt-6">
       <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-        <span aria-hidden="true">📖</span> Readability &amp; Timing
+        <BookOpen className="w-5 h-5 text-primary" /> Readability &amp; Timing
       </h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -83,7 +84,7 @@ const ReadabilityScore = ({ readability, fkGrade, readingTime, speakingTime, wri
             <div className="mt-4 space-y-1.5">
               {tips.map((tip, i) => (
                 <p key={i} className="text-xs text-gray-600 dark:text-gray-400 flex items-start gap-1.5">
-                  <span className="shrink-0 mt-0.5">💡</span>{tip}
+                  <Lightbulb className="w-3.5 h-3.5 text-amber-500 shrink-0 mt-0.5" />{tip}
                 </p>
               ))}
             </div>

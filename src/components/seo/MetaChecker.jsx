@@ -1,26 +1,41 @@
 import { useState } from 'react';
+import { Search, AlertTriangle, XCircle, CheckCircle } from 'lucide-react';
 
 const TITLE_MIN = 50;
 const TITLE_MAX = 60;
 const DESC_MIN = 150;
 const DESC_MAX = 160;
 
-// Approximate pixel width (avg char ≈ 5.5px in Google snippet font)
 const PX_PER_CHAR = 5.5;
 const GOOGLE_TITLE_PX = 580;
 const GOOGLE_DESC_PX = 920;
 
+const StatusBadge = ({ len, min, max }) => {
+  if (len === 0) return null;
+  if (len < min) return (
+    <span className="flex items-center gap-1 text-xs text-yellow-600 dark:text-yellow-400">
+      <AlertTriangle className="w-3.5 h-3.5 shrink-0" /> Too short
+    </span>
+  );
+  if (len > max) return (
+    <span className="flex items-center gap-1 text-xs text-red-600 dark:text-red-400">
+      <XCircle className="w-3.5 h-3.5 shrink-0" /> Too long — will be truncated
+    </span>
+  );
+  return (
+    <span className="flex items-center gap-1 text-xs text-green-600 dark:text-green-400">
+      <CheckCircle className="w-3.5 h-3.5 shrink-0" /> Optimal length
+    </span>
+  );
+};
+
 const FieldChecker = ({ label, value, onChange, min, max, placeholder, rows = 1 }) => {
   const len = value.length;
-  const tooShort = len > 0 && len < min;
   const tooLong = len > max;
   const perfect = len >= min && len <= max;
 
   const barPct = Math.min((len / max) * 100, 100);
   const barColor = tooLong ? 'bg-red-500' : perfect ? 'bg-green-500' : 'bg-yellow-500';
-
-  const status = len === 0 ? '' : tooShort ? '⚠️ Too short' : tooLong ? '❌ Too long — will be truncated' : '✅ Optimal length';
-  const statusColor = tooShort ? 'text-yellow-600 dark:text-yellow-400' : tooLong ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400';
 
   return (
     <div className="mb-5">
@@ -44,7 +59,7 @@ const FieldChecker = ({ label, value, onChange, min, max, placeholder, rows = 1 
       )}
 
       <div className="flex items-center justify-between mt-1.5">
-        <span className={`text-xs ${statusColor}`}>{status}</span>
+        <StatusBadge len={len} min={min} max={max} />
         <span className={`text-xs font-mono ${tooLong ? 'text-red-600 dark:text-red-400 font-bold' : 'text-gray-500 dark:text-gray-400'}`}>
           {len} / {max}
         </span>
@@ -84,7 +99,7 @@ const MetaChecker = () => {
   return (
     <div className="section-card mt-4">
       <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-        <span aria-hidden="true">🔎</span> Meta Tags Checker
+        <Search className="w-5 h-5 text-primary" /> Meta Tags Checker
       </h3>
 
       <FieldChecker
