@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from '../../hooks/useTheme';
 import {
-  Wrench, Globe, BarChart2, Coffee, ChevronDown,
+  Wrench, Globe, BarChart2, ChevronDown,
   Menu, X, Moon, Sun, Lock, Rocket, Scale,
 } from 'lucide-react';
 

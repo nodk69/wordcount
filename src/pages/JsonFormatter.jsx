@@ -2,7 +2,6 @@ import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
-import CollapsibleSection from '../components/ui/CollapsibleSection';
 import { BarChart2, AlertCircle, Lightbulb, BookOpen, Info, Upload, Code2, ShieldCheck, GitBranch, ArrowUpDown, Download, ChevronDown } from 'lucide-react';
 
 // ─── Example ──────────────────────────────────────────────────────────────────
