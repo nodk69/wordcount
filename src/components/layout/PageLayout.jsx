@@ -3,8 +3,8 @@ import Footer from './Footer';
 import Navbar from './Navbar';
 import { usePageMeta } from '../../hooks/usePageMeta';
 
-const PageLayout = ({ children, title, subtitle, icon, centered = false }) => {
-  usePageMeta({ title });
+const PageLayout = ({ children, title, subtitle, icon, centered = false, description, path }) => {
+  usePageMeta({ title, description, path });
 
   return (
     <div className="min-h-screen flex flex-col bg-light dark:bg-dark transition-colors duration-200">

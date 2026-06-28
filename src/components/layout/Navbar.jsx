@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from '../../hooks/useTheme';
-import {
-  Wrench, Globe, BarChart2, ChevronDown,
-  Menu, X, Moon, Sun, Lock, Rocket, Scale,
-} from 'lucide-react';
+import { Wrench, ChevronDown, Menu, X, Moon, Sun, Lock, Rocket } from 'lucide-react';
+import { MAIN_NAV, TOOLS } from '../../config/navigation';
+
+// First entry (Home) sits before the Tools dropdown; the rest sit after.
+const navBefore = MAIN_NAV.slice(0, 1);
+const navAfter  = MAIN_NAV.slice(1);
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,19 +26,7 @@ const Navbar = () => {
     setIsToolsOpen(false);
   }, [location]);
 
-  const navBefore = [{ path: '/', label: 'Home' }];
-  const navAfter  = [
-    { path: '/blog',    label: 'Blog' },
-    { path: '/about',   label: 'About' },
-    { path: '/contact', label: 'Contact' },
-  ];
-
-  const toolLinks = [
-    { label: 'JSON Formatter', icon: <Wrench className="w-6 h-6" />, description: 'Format & validate JSON data', path: '/json-formatter', available: true, hidden: true },
-    { label: 'Content Comparison', icon: <Scale className="w-6 h-6" />, description: 'Compare two texts for similarity', path: '/content-comparison', available: true },
-    { label: 'HTML/XML Formatter', icon: <Globe className="w-6 h-6" />, description: 'Format & minify HTML/XML', available: false, hidden: true },
-    { label: 'SQL Formatter', icon: <BarChart2 className="w-6 h-6" />, description: 'Clean & beautify SQL queries', available: false, hidden: true },
-  ];
+  const visibleTools = TOOLS.filter(t => t.status !== 'hidden');
 
   return (
     <nav
@@ -96,38 +86,42 @@ const Navbar = () => {
                 }`}
               >
                 <div className="p-2">
-                  {toolLinks.filter(t => !t.hidden).map(({ label, icon, description, path, available }) =>
-                    available ? (
+                  {visibleTools.map((tool) =>
+                    tool.status === 'live' ? (
                       <Link
-                        key={label}
-                        to={path}
+                        key={tool.label}
+                        to={tool.path}
                         className="flex items-start gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-dark-border transition-colors group"
                       >
-                        <span className="shrink-0 text-gray-600 dark:text-gray-400 mt-0.5">{icon}</span>
+                        <span className="shrink-0 text-gray-600 dark:text-gray-400 mt-0.5">
+                          <tool.icon className="w-6 h-6" />
+                        </span>
                         <div className="flex-1">
                           <div className="flex items-center gap-2">
-                            <span className="font-medium text-gray-900 dark:text-white group-hover:text-primary transition-colors">{label}</span>
+                            <span className="font-medium text-gray-900 dark:text-white group-hover:text-primary transition-colors">{tool.label}</span>
                             <span className="text-[10px] font-semibold uppercase tracking-wider bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-0.5 rounded-full">
                               New
                             </span>
                           </div>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">{description}</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">{tool.description}</p>
                         </div>
                       </Link>
                     ) : (
                       <div
-                        key={label}
+                        key={tool.label}
                         className="flex items-start gap-3 px-4 py-3 rounded-lg opacity-60 cursor-not-allowed"
                       >
-                        <span className="shrink-0 text-gray-400 dark:text-gray-600 mt-0.5">{icon}</span>
+                        <span className="shrink-0 text-gray-400 dark:text-gray-600 mt-0.5">
+                          <tool.icon className="w-6 h-6" />
+                        </span>
                         <div className="flex-1">
                           <div className="flex items-center gap-2">
-                            <span className="font-medium text-gray-900 dark:text-white">{label}</span>
+                            <span className="font-medium text-gray-900 dark:text-white">{tool.label}</span>
                             <span className="text-[10px] font-semibold uppercase tracking-wider bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 px-2 py-0.5 rounded-full">
                               Soon
                             </span>
                           </div>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">{description}</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">{tool.description}</p>
                         </div>
                         <Lock className="w-4 h-4 text-gray-300 dark:text-gray-600 shrink-0 mt-0.5" />
                       </div>
@@ -158,7 +152,7 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Right side: theme toggle + support */}
+          {/* Right side: theme toggle */}
           <div className="hidden md:flex items-center gap-1 flex-1 justify-end">
             <button
               onClick={toggleTheme}
@@ -168,7 +162,8 @@ const Navbar = () => {
               {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
             </button>
 
-            {/* <Link
+            {/* Support button — hidden until ready
+            <Link
               to="/support"
               className="flex items-center gap-1.5 px-4 py-1.5 bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-white text-sm font-semibold rounded-lg shadow-sm hover:shadow-md transition-all hover:scale-105"
             >
@@ -219,17 +214,19 @@ const Navbar = () => {
               <p className="px-3 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
                 <Wrench className="w-3.5 h-3.5" /> Tools
               </p>
-              {toolLinks.filter(t => !t.hidden).map(({ label, icon, path, available }) =>
-                available ? (
+              {visibleTools.map((tool) =>
+                tool.status === 'live' ? (
                   <Link
-                    key={label}
-                    to={path}
+                    key={tool.label}
+                    to={tool.path}
                     onClick={() => setIsOpen(false)}
                     className="flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary hover:bg-gray-50 dark:hover:bg-dark-card transition-colors"
                   >
                     <div className="flex items-center gap-3">
-                      <span className="text-gray-600 dark:text-gray-400">{icon}</span>
-                      <span>{label}</span>
+                      <span className="text-gray-600 dark:text-gray-400">
+                        <tool.icon className="w-6 h-6" />
+                      </span>
+                      <span>{tool.label}</span>
                     </div>
                     <span className="text-[10px] font-semibold uppercase tracking-wider bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-0.5 rounded-full">
                       New
@@ -237,12 +234,12 @@ const Navbar = () => {
                   </Link>
                 ) : (
                   <div
-                    key={label}
+                    key={tool.label}
                     className="flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium text-gray-500 dark:text-gray-400 opacity-60 cursor-not-allowed"
                   >
                     <div className="flex items-center gap-3">
-                      <span>{icon}</span>
-                      <span>{label}</span>
+                      <span><tool.icon className="w-6 h-6" /></span>
+                      <span>{tool.label}</span>
                     </div>
                     <span className="text-[10px] font-semibold uppercase tracking-wider bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 px-2 py-0.5 rounded-full">
                       Soon
@@ -267,7 +264,8 @@ const Navbar = () => {
               </Link>
             ))}
 
-            {/* <Link
+            {/* Support button — hidden until ready
+            <Link
               to="/support"
               onClick={() => setIsOpen(false)}
               className="flex items-center justify-center gap-2 mt-1 px-4 py-2.5 bg-gradient-to-r from-amber-400 to-orange-500 text-white text-sm font-semibold rounded-lg shadow-sm w-full"
