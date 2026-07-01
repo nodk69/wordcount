@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "how-to-improve-readability",
+    "title": "How to Improve Your Writing Readability Score",
+    "date": "June 20, 2026",
+    "category": "Writing Tips",
+    "excerpt": "A high Flesch Reading Ease score means more readers can engage with your content. Learn the five key techniques that professional writers use to simplify complex ideas without losing depth.",
+    "readTime": "5 min read"
+  },
+  {
+    "slug": "word-count-by-content-type",
+    "title": "Ideal Word Count for Every Type of Content",
+    "date": "June 15, 2026",
+    "category": "SEO",
+    "excerpt": "Blog posts, landing pages, product descriptions — they all have sweet spots. We analyzed 10,000 top-ranking pages to find the word counts that actually correlate with search rankings.",
+    "readTime": "7 min read"
+  },
+  {
+    "slug": "keyword-density-guide",
+    "title": "Keyword Density in 2026: What Still Matters",
+    "date": "June 10, 2026",
+    "category": "SEO",
+    "excerpt": "The old \"2% rule\" is dead, but keyword density is not. Here is how modern search engines evaluate keyword usage and how to hit the right balance without triggering spam filters.",
+    "readTime": "6 min read"
+  },
+  {
+    "slug": "passive-voice-and-seo",
+    "title": "Does Passive Voice Hurt Your SEO? The Data.",
+    "date": "June 4, 2026",
+    "category": "Writing Tips",
+    "excerpt": "Google's Quality Rater Guidelines reference \"clarity\" dozens of times. We tested 500 pages to find out whether passive voice directly affects rankings — and the results surprised us.",
+    "readTime": "4 min read"
+  },
+  {
+    "slug": "flesch-kincaid-explained",
+    "title": "Flesch-Kincaid Grade Level Explained for Content Creators",
+    "date": "May 28, 2026",
+    "category": "Education",
+    "excerpt": "The Flesch-Kincaid formula was invented in 1948 for the US Navy. Here is how it works, why it still matters for web content, and how to interpret your score for different audiences.",
+    "readTime": "5 min read"
+  },
+  {
+    "slug": "writing-goals-daily-habit",
+    "title": "How a Daily Word Count Goal Transformed My Writing",
+    "date": "May 22, 2026",
+    "category": "Productivity",
+    "excerpt": "Setting a 500-word daily goal sounds modest. But the compounding effect is remarkable — here is how tracking your daily output creates momentum that carries an entire writing career.",
+    "readTime": "3 min read"
+  }
+]

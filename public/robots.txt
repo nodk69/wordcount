@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
-Disallow: /api/
-Disallow: /_redirects
+Disallow: /tools
+Disallow: /support
+Disallow: /sitemap
+
 Sitemap: https://countsyourwords.netlify.app/sitemap.xml
