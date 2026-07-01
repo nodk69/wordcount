@@ -1,2 +1,6 @@
+# Static files — serve directly
+/sitemap.xml  /sitemap.xml  200
+/robots.txt   /robots.txt   200
+
 # Netlify SPA routing — serve index.html for all client-side routes
 /*  /index.html  200
